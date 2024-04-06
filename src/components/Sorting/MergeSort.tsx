@@ -12,53 +12,74 @@ function MergeSort() {
     e.preventDefault();
   };
 
-  const sort = () => {
-    console.log(arr);
-    const merged = mergeSort(arr, 0, parseInt(size) - 1);
-    setArr(merged);
-    console.log(arr);
+  const generateAndSetArray = () => {
+    generateArray(parseInt(size), setArr, setErr);
   };
 
-  const mergeSort = (arr: number[], s: number, e: number) => {
-    if (s >= e) return arr.slice(s, e + 1);
+  const sort = async () => {
+    if (!isNaN(parseInt(size)) && parseInt(size) > 1) {
+      const generatedArray = [...arr];
+      await mergeSort(generatedArray, 0, generatedArray.length - 1);
+    } else {
+      setErr("Please enter a valid array size (greater than 1).");
+    }
+  };
+
+  const mergeSort = async (
+    arr: number[],
+    s: number,
+    e: number,
+  ): Promise<void> => {
+    if (s >= e) return;
 
     const mid = Math.floor(s + (e - s) / 2);
 
-    const left = mergeSort(arr, s, mid);
-    const right = mergeSort(arr, mid + 1, e);
-    const merged = merge(left, right);
-
-    return merged;
+    await mergeSort(arr, s, mid);
+    await mergeSort(arr, mid + 1, e);
+    await merge(arr, s, mid, e);
   };
 
-  const merge = (left: number[], right: number[]) => {
-    const n1 = left.length;
-    const n2 = right.length;
+  const merge = async (
+    arr: number[],
+    s: number,
+    mid: number,
+    e: number,
+  ): Promise<void> => {
+    const n1 = mid - s + 1;
+    const n2 = e - mid;
 
-    const merged: number[] = [];
-    let i = 0;
-    let j = 0;
-    let k = 0;
+    const leftArr = arr.slice(s, mid + 1);
+    const rightArr = arr.slice(mid + 1, e + 1);
+
+    let i = 0,
+      j = 0,
+      k = s;
 
     while (i < n1 && j < n2) {
-      if (left[i] <= right[j]) {
-        merged[k] = left[i++];
+      if (leftArr[i] <= rightArr[j]) {
+        arr[k++] = leftArr[i++];
       } else {
-        merged[k] = right[j++];
+        arr[k++] = rightArr[j++];
       }
-      k++;
+      setArr([...arr]); // Update array state
+      await delay(500); // Delay for visualization
     }
 
     while (i < n1) {
-      merged[k++] = left[i++];
+      arr[k++] = leftArr[i++];
+      setArr([...arr]); // Update array state
+      await delay(500); // Delay for visualization
     }
 
     while (j < n2) {
-      merged[k++] = right[j++];
+      arr[k++] = rightArr[j++];
+      setArr([...arr]); // Update array state
+      await delay(500); // Delay for visualization
     }
-    console.log(`merge: ${merged}`);
-    return merged;
   };
+
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   return (
     <>
@@ -77,10 +98,10 @@ function MergeSort() {
           <div className="flex mt-4">
             <Button
               className="mr-4"
-              onClick={() => generateArray(size, setArr, setErr)}
+              onClick={generateAndSetArray}
               children="Generate Array"
             />
-            <Button children="SORT" type="submit" onClick={sort} />
+            <Button children="SORT" type="button" onClick={sort} />
           </div>
           <br />
           <br />
@@ -93,7 +114,9 @@ function MergeSort() {
             key={index}
             className="bg-blue-500 h-auto mr-2"
             style={{ width: "20px", height: `${value * 10}px` }}
-          ></div>
+          >
+            {value}
+          </div>
         ))}
       </div>
     </>

@@ -32,7 +32,7 @@ function BubbleSort() {
     iterations.forEach((iterations, index) => {
       setTimeout(() => {
         setArr(iterations);
-      }, index * 500);
+      }, index * 1000);
     });
   };
 
@@ -67,7 +67,9 @@ function BubbleSort() {
             key={index}
             className="bg-blue-500 h-auto mr-2"
             style={{ width: "20px", height: `${value * 10}px` }}
-          ></div>
+          >
+            {value}
+          </div>
         ))}
       </div>
     </>
