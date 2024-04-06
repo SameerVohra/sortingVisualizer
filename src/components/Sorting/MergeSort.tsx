@@ -16,6 +16,7 @@ function MergeSort() {
     console.log(arr);
     const merged = mergeSort(arr, 0, parseInt(size) - 1);
     setArr(merged);
+    console.log(arr);
   };
 
   const mergeSort = (arr: number[], s: number, e: number) => {
@@ -26,6 +27,7 @@ function MergeSort() {
     const left = mergeSort(arr, s, mid);
     const right = mergeSort(arr, mid + 1, e);
     const merged = merge(left, right);
+
     return merged;
   };
 
@@ -54,7 +56,7 @@ function MergeSort() {
     while (j < n2) {
       merged[k++] = right[j++];
     }
-
+    console.log(`merge: ${merged}`);
     return merged;
   };
 
@@ -65,7 +67,9 @@ function MergeSort() {
           <Input
             label="Enter the array size"
             placeholder="Enter size"
-            onChange={(e) => setSize(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSize(e.target.value)
+            }
             className="text-black"
           />
           <br />
