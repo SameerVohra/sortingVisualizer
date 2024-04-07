@@ -3,6 +3,7 @@ import React from "react";
 interface ButtonProps {
   type?: "button" | "submit" | "reset";
   className?: string;
+  children: string;
 }
 
 const Button: React.FC<ButtonProps> = ({

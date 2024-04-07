@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import Input from "../Input";
 import Button from "../Button";
 import { generateArray } from "./generateArray";
 import { algorithms } from "../../SortingAlgorithms/algorithms";
 
 function BubbleSort() {
-  const [size, setSize] = useState<number>(0);
+  const [size, setSize] = useState<string>("");
   const [arr, setArr] = useState<number[]>([]);
   const [err, setErr] = useState<string>("");
-  const [language, setLanguage] = useState<string>("cpp");
+  const [language, setLanguage] =
+    useState<keyof typeof algorithms.bubbleSort.code>("cpp");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  };
+
+  const handleChange = (e: FormEvent<HTMLInputElement>) => {
+    setSize(e.currentTarget.value);
   };
 
   const sort = () => {
@@ -55,7 +60,7 @@ function BubbleSort() {
           <Input
             label="Enter the array size"
             placeholder="Enter size"
-            onChange={(e) => setSize(parseInt(e.target.value))}
+            onChange={handleChange}
             className="text-black"
           />
           <br />
@@ -63,7 +68,7 @@ function BubbleSort() {
           <div className="flex mt-4">
             <Button
               className="mr-4"
-              onClick={() => generateArray(size, setArr, setErr)}
+              onClick={() => generateArray(parseInt(size), setArr, setErr)} // Parse size to int
               children="Generate Array"
             />
             <Button children="SORT" type="submit" onClick={sort} />
