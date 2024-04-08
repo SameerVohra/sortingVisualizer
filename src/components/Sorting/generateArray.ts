@@ -1,7 +1,7 @@
 export const generateArray = (
   size: string,
   setArr: React.Dispatch<React.SetStateAction<number[]>>,
-  setErr: React.Dispatch<React.SetStateAction<string | undefined>>,
+  setErr: React.Dispatch<React.SetStateAction<string | "">>,
 ) => {
   const n: number = parseInt(size);
   const map = new Map<number, boolean>();

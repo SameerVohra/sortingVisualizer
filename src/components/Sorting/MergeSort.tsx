@@ -8,13 +8,13 @@ function MergeSort() {
   const [size, setSize] = useState<string>("");
   const [arr, setArr] = useState<number[]>([]);
   const [err, setErr] = useState<string>("");
-  const [language, setLanguage] = useState<string>("cpp");
+  const [language, setLanguage] = useState<"cpp" | "c" | "java">("cpp");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
 
   const generateAndSetArray = () => {
-    generateArray(parseInt(size), setArr, setErr);
+    generateArray(size, setArr, setErr);
   };
 
   const sort = async () => {
@@ -97,6 +97,7 @@ function MergeSort() {
       <div className="p-2 bg-black text-white flex flex-wrap flex-col items-center justify-center">
         <form onSubmit={handleSubmit}>
           <Input
+            type="text"
             label="Enter the array size"
             placeholder="Enter size"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

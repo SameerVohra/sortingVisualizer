@@ -58,6 +58,7 @@ function BubbleSort() {
       <div className="p-2 bg-black text-white flex flex-wrap flex-col items-center justify-center">
         <form onSubmit={handleSubmit}>
           <Input
+            type="text"
             label="Enter the array size"
             placeholder="Enter size"
             onChange={handleChange}
@@ -68,7 +69,7 @@ function BubbleSort() {
           <div className="flex mt-4">
             <Button
               className="mr-4"
-              onClick={() => generateArray(parseInt(size), setArr, setErr)} // Parse size to int
+              onClick={() => generateArray(size, setArr, setErr)}
               children="Generate Array"
             />
             <Button children="SORT" type="submit" onClick={sort} />

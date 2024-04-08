@@ -3,11 +3,12 @@ import Input from "../Input";
 import Button from "../Button";
 import { generateArray } from "./generateArray";
 import { algorithms } from "../../SortingAlgorithms/algorithms";
+
 function InsertionSort() {
   const [arr, setArr] = useState<number[]>([]);
   const [err, setErr] = useState<string>("");
   const [size, setSize] = useState<string>("");
-  const [language, setLanguage] = useState<string>("cpp");
+  const [language, setLanguage] = useState<"cpp" | "c" | "java">("cpp");
 
   const sort = () => {
     console.log(arr);
@@ -17,8 +18,8 @@ function InsertionSort() {
 
   const insertionSort = (newArr: number[], n: number) => {
     const tmp = [];
-    for (let i: number = 1; i < n; i++) {
-      const key: number = newArr[i];
+    for (let i = 1; i < n; i++) {
+      const key = newArr[i];
       let j = i - 1;
       while (j >= 0 && newArr[j] > key) {
         newArr[j + 1] = newArr[j];
@@ -55,9 +56,9 @@ function InsertionSort() {
             type="text"
             className="text-black"
             placeholder="Enter size"
-            onChange={(e) => {
-              setSize(e.target.value);
-            }}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSize(e.target.value)
+            }
           />
           <br />
           <br />

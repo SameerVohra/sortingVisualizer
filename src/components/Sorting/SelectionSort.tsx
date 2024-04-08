@@ -7,8 +7,7 @@ function SelectionSort() {
   const [size, setSize] = useState("");
   const [arr, setArr] = useState<number[]>([]);
   const [err, setErr] = useState("");
-  const [language, setLanguage] = useState("cpp");
-
+  const [language, setLanguage] = useState<"cpp" | "c" | "java">("cpp");
   const sort = (arr: number[]) => {
     const newArr = arr.slice(0, arr.length);
     selectionSort(newArr, arr.length);

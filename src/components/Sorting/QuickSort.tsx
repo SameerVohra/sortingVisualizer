@@ -8,7 +8,7 @@ function QuickSort() {
   const [arr, setArr] = useState<number[]>([]);
   const [size, setSize] = useState<string>("");
   const [err, setErr] = useState<string>("");
-  const [language, setLanguage] = useState("cpp");
+  const [language, setLanguage] = useState<"cpp" | "c" | "java">("cpp");
 
   const sort = () => {
     const newArr = [...arr];
